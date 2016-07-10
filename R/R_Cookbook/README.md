@@ -29,17 +29,36 @@ Main.r
 
 ### 1.13 Submitting Questions to the Mailing Lists
 
-2. Some Basics 
-2.1 Printing Something 23
-2.2 Setting Variables 25
-2.3 Listing Variables 26
-2.4 Deleting Variables 27
-2.5 Creating a Vector 28
-2.6 Computing Basic Statistics 30
-2.7 Creating Sequences 32
-2.8 Comparing Vectors 34
-2.9 Selecting Vector Elements 35
-2.10 Performing Vector Arithmetic 38
-2.11 Getting Operator Precedence Right 40
-2.12 Defining a Function 41
-2.13 Typing Less and Accomplishing More 43
+## 2. Some Basics 
+
+Main.r
+
+### 2.1 Printing Something
+
+### 2.2 Setting Variables
+
+### 2.3 Listing Variables
+
+### 2.4 Deleting Variables
+
+### 2.5 Creating a Vector
+
+### 2.6 Computing Basic Statistics
+
+### 2.7 Creating Sequences
+
+### 2.8 Comparing Vectors 
+
+### 2.9 Selecting Vector Elements 
+
+### 2.10 Performing Vector Arithmetic 
+
+### 2.11 Getting Operator Precedence Right 
+
+### 2.12 Defining a Function
+
+### 2.13 Typing Less and Accomplishing More
+
+
+
+
