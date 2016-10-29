@@ -1,0 +1,64 @@
+ssh-keygen -t rsa
+cd ~/.ssh/
+ssh-copy-id liguodong@hadoop1
+ssh localhost
+
+ssh-keygen -t rsa
+cat id_rsa.pub >> authorized_keys
+
+
+
+
+liguodong@ubuntu:~/.ssh$ cat authorized_keys 
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCtqv04MmyCQ01WVqg/amwNTHAZFb8xadZZ15IBW8A5KVtxdQZi4ONwY/yxPZAclyynpAWLmZijvVovoqDAcX42jZbNmPYQ0kX9KfCNX0dsLOhnZRuZd8mPfEiPaGkIUSEhwFHvHnN8edWkRjRLN0OFUPYyrRM/rvoG9JVlChZ4j7qZplDTZ8TzbS2jMXrD15p3P7I0liesi5OL6tm7oA8dtL73Wxq1tei2U8U8wjl6jRUwox/Yk2m5 liguodong@ubuntu
+
+
+
+
+ssh-copy-id -i ubuntu
+
+scp /home/liguodong/.ssh/authorized_keys hadoop2:/home/liguodong/.ssh/
+
+
+
+./move_file.sh jdk-7u76-linux-x64.tar.gz jdk
+./move_file.sh scala-2.11.7.tgz scala
+./move_file.sh hadoop-2.6.0-64.tar.gz hadoop
+./move_file.sh apache-hive-2.1.0-bin.tar.gz hive
+./move_file.sh zookeeper-3.4.5.tar.gz zookeeper
+./move_file.sh hbase-1.1.3-bin.tar.gz hbase
+./move_file.sh apache-kylin-1.5.4.1-hbase1.x-bin.tar.gz kylin
+
+scp /home/liguodong/install/hadoop/etc/hadoop/* hadoop1:/home/liguodong/install/hadoop/etc/hadoop/
+scp /home/liguodong/install/hadoop/etc/hadoop/* hadoop2:/home/liguodong/install/hadoop/etc/hadoop/
+
+
+mkdir -p /home/liguodong/tmp/install/zookeeper/data
+cd /home/liguodong/tmp/install/zookeeper/data
+echo  0 > myid
+
+
+
+
+scp -r hadoop/ hadoop3:/install/hadoop/etc/
+
+
+
+-----------------------------------------------------------------
+
+hive --service metastore &
+
+-----------------------------------------------------------------
+
+
+
+
+
+-----------------------------------------------------------------
+
+
+
+
+
+
+-----------------------------------------------------------------

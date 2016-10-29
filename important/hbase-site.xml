@@ -1,0 +1,60 @@
+
+<configuration>
+	
+	
+	<property>       
+		<name>hbase.tmp.dir</name>       
+		<value>/home/liguodong/tmp/hbase</value>   
+	</property>
+	
+	<!--hbase的存储目录-->
+	<property>      
+		<name>hbase.rootdir</name>      
+		<value>hdfs://cluster/hbase</value>   
+	</property> 
+	
+	<!--指定hbase的运行模式，true代表全分布模式；-->
+	<property>         
+		<name>hbase.cluster.distributed</name>         
+		<value>true</value>   
+	</property>
+
+	<!--关于Zookeeper集群的配置-->
+	<property>      
+		<name>hbase.zookeeper.quorum</name>      
+		<value>ubuntu,hadoop1,hadoop2</value>    
+	</property>  
+	<property>      
+		<name>hbase.zookeeper.property.dataDir</name>       
+		<value>/home/liguodong/tmp/hbase/zk</value>   
+	</property>
+	
+	<!--hbase的存储目录
+	
+	<property>      
+		<name>zookeeper.session.timeout</name>      
+		<value>120000</value>   
+	</property>   
+	<property>    
+		<name>hbase.zookeeper.property.tickTime</name>    
+		<value>6000</value>  
+	</property>
+	
+	<property>    
+		 <name>hbase.zookeeper.property.clientPort</name>     
+		 <value>2181</value>   
+	</property>  
+	<property>      
+		<name>dfs.replication</name>      
+		<value>2</value>    
+	</property>    
+	<property>        
+		<name>hbase.master.maxclockskew</name>        
+		<value>180000</value>    
+	</property> 
+	-->
+	 
+	
+	 
+	
+</configuration>

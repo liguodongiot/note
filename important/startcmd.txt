@@ -1,0 +1,121 @@
+集群启动顺序
+
+---------------------
+Hadoop:
+
+
+启动Zookeeper
+zkServer.sh start
+
+
+在各个上分别启动journalnode
+hadoop-daemon.sh start journalnode
+
+
+启动namenode (active和strandby)
+hadoop-daemon.sh start namenode
+
+在各个上分别启动zkfc(active和strandby)
+hadoop-daemon.sh   start   zkfc
+
+启动datanode
+在主节点上执行命令hadoop-daemons.sh start datanode
+
+
+启动yarn
+在主节点执行start-yarn.sh
+
+启动jobhistory
+mr-jobhistory-daemon.sh start historyserver
+yarn-daemon.sh start timelineserver
+---------------------
+Hive:
+
+hive --service metastore &
+
+hive
+
+
+hive --service hiveserver2  &
+
+beeline -u jdbc:hive2://192.168.133.252:10000  -n liguodong  -p liguodong
+
+-----------------------
+Hbase:
+hbase需要根据hadoop2.0里的hdfs HA方案做相应修改。
+实际操作时将hdfs的配置文件core-site.xml和hdfs-site.xml拷贝到hbase的conf目录下即可解决问题。
+
+
+start-hbase.sh (主节点)
+
+
+http://192.168.133.252:16010
+http://192.168.133.237:16030
+http://192.168.133.238:16030
+
+
+
+1、执行hbase shell 命令：
+
+2、创建testtable表
+
+create 'testtable', 'colfaml'
+
+3、put数据
+
+hbase shell是基于Ruby实现的，因此使用过程中可以将hbase shell与Ruby代码混合使用。
+
+for i in 'a'..'d' do for j in 'a'..'d' do \
+
+put 'testtable' , "row-#{i}#{j}","colfaml:#{j}" ,"#{j}" end end
+
+4、查看插入数据
+
+scan 'testtable'
+
+5、删除表
+
+disable 'testtable'
+drop 'testtable'
+
+6、列出全部表
+
+list
+
+----------------------
+Kylin:
+
+echo "testing"
+
+kylin.sh start
+
+netstat -ano | grep 7070
+
+
+启动成功后，访问 http://192.168.133.252:7070/kylin/login   用户名 ADMIN  密码 KYLIN
+
+
+
+
+案例测试
+1、执行kylin.sh stop
+2、/home/liguodong/install/kylin/bin下执行 sample.sh  将kylin测试数据写到hive中
+3、执行kylin.sh start
+此时在Hive下能看到kylin导入的表，  
+kylin_cal_dt   
+kylin_catagory_groups   
+kylin_sales
+
+
+选择 actions下的build选择框，后选择截止日期，提交job，
+
+访问http://192.168.133.252:7070/kylin/jobs 
+
+
+可以看到你刚提交的job， 此时kylin会把任务转交给mr
+
+通过 tail -f /home/liguodong/install/kylin/tomcat/logs/logs.kylin_job.log 实时查看 build日志信息
+
+
+
+----------------------

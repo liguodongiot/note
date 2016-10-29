@@ -1,0 +1,23 @@
+<configuration>
+	<property>       
+        <name>fs.default.name</name>
+        <value>hdfs://ubuntu:8020</value>
+    </property>
+
+    <property>
+        <name>hadoop.tmp.dir</name>
+        <value>/home/liguodong/tmp/install/hadoop/data</value>         
+    </property>
+	
+	
+	<property>
+		<name>hadoop.proxyuser.liguodong.hosts</name>
+		<value>*</value>
+	</property>
+	<property>
+		<name>hadoop.proxyuser.liguodong.groups</name>
+		<value>*</value>
+	</property>
+</configuration>
+
+
