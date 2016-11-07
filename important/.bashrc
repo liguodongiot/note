@@ -14,3 +14,11 @@ export HBASE_HOME=/home/liguodong/install/hbase
 export KYLIN_HOME=/home/liguodong/install/kylin
 export PATH=$ZOOKEEPER_HOME/bin:$HBASE_HOME/bin:$KYLIN_HOME/bin:$PATH
 
+
+# User specific aliases and functions
+cdls() {  
+    cd "${1}";  
+    ls;  
+}  
+alias cs='cdls' 
+
