@@ -49,9 +49,13 @@ scp -r hadoop/ hadoop3:/install/hadoop/etc/
 hive --service metastore &
 
 -----------------------------------------------------------------
-
-
-
+scp /home/liguodong/install/hbase/conf/hbase-env.sh hadoop1:/home/liguodong/install/hbase/conf/
+scp /home/liguodong/install/hbase/conf/hbase-site.xml hadoop1:/home/liguodong/install/hbase/conf/
+scp /home/liguodong/install/hbase/conf/regionservers hadoop1:/home/liguodong/install/hbase/conf/
+          
+scp /home/liguodong/install/hbase/conf/hbase-env.sh hadoop2:/home/liguodong/install/hbase/conf/
+scp /home/liguodong/install/hbase/conf/hbase-site.xml hadoop2:/home/liguodong/install/hbase/conf/
+scp /home/liguodong/install/hbase/conf/regionservers hadoop2:/home/liguodong/install/hbase/conf/
 
 
 -----------------------------------------------------------------
