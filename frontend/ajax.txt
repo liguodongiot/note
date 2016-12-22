@@ -1,0 +1,81 @@
+
+
+
+$.ajax({
+	type: 'POST',
+	dataType: "json",
+	data: {"userName":userName,"dimId":dimensionTableId},
+	url: appPath + "/user/queryCategoryAllAndUserByDim.json",
+	success : function(data){
+		/*
+		$('#dia-dg').datagrid('loadData',{total:0,rows:[]});
+		for ( var machine in data) {
+			var a =  {
+				'id' : data[machine].id,
+				'name' : data[machine].name
+			};
+			$('#dia-dg').datagrid('appendRow', a);
+		}
+		*/
+
+		$('#dia-dg').datagrid('loadData',{total:data.length,rows:data});
+		$('#dia-dg').datagrid('unselectAll');
+		if (data.length > 0) {
+			for (var i = 0; i < data.length; i++) {
+				if (data[i].exist == true) {
+					$('#dia-dg').datagrid('checkRow',i);
+				}
+			}
+		}
+
+	},
+	error :function(){
+		$.messager.alert("提示", "网络连接出错！","error");
+	}
+});
+
+
+
+@RequestMapping(value = "/queryCategoryAllAndUserByDim")
+@ResponseBody
+public List<Map<String, Object>> queryCategoryAllAndUserByDim(
+		@RequestParam(value = "userName", required =true, defaultValue = "") String userName,
+		@RequestParam(value = "dimId", required =true, defaultValue = "") String dimId
+){
+
+	List<Map<String, Object>> results = new ArrayList<Map<String, Object>>();
+
+	if(dimId.equals("1")){
+		results = userDataAuthorityService.queryChannelAll();
+	}else if(dimId.equals("2")){
+		results = userDataAuthorityService.queryGoodsAll();
+	}
+
+	List<Map<String, Object>> categoryIdValue = userDataAuthorityService.queryCategoryIdValue(userName,dimId);
+
+	Map<String, Map<String,Object>> mapMap = new LinkedHashMap<String, Map<String, Object>>(results.size());
+	for (Map<String, Object> temp: results) {
+		temp.put("exist",false);
+		mapMap.put(temp.get("id").toString(),temp);
+	}
+
+	if(categoryIdValue!=null&& categoryIdValue.size()>0){
+		String str =SqlExecuteUtil.getDataForMap(categoryIdValue.get(0), "category_id_value", String.class, "");
+		String[] categoryIdArr = str.split(",");
+
+		for (int i = 0; i < categoryIdArr.length; i++) {
+			if(mapMap.containsKey(categoryIdArr[i])){
+				Map<String, Object> temp = mapMap.get(categoryIdArr[i]);
+				temp.put("exist",true);
+			}
+		}
+
+	}
+	List<Map<String, Object>> list = new ArrayList<Map<String, Object>>(mapMap.values());
+	return list;
+}
+
+
+
+
+

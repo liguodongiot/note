@@ -1,0 +1,33 @@
+
+#datagrid
+
+取消checkbox所有选中
+$('#dia-dg').datagrid('unselectAll');
+
+
+#选中checkbox某一行，从0开始
+$('#dia-dg').datagrid('checkRow',rowIndex);
+
+
+#获取选中行的值
+var rows = $('#datagrid').datagrid('getSelections');
+
+var ids = "";
+var names = "";
+
+if(rows != null && rows.length>0){
+	for(var i=0; i<rows.length-1; i++){
+
+		ids += rows[i].id + ",";
+		names += rows[i].name + ",";
+
+	}
+	ids += rows[i].id
+	names += rows[i].name
+}else{
+	$.messager.alert("提示", "你好呀！","error");
+	return;
+}
+
+
+
