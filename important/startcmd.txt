@@ -31,6 +31,14 @@ yarn-daemon.sh start timelineserver
 ---------------------
 Hive:
 
+如果MYSQL在windows,需要修改mysql中的hive数据库字符集为latin1。
+
+alter database hive character set latin1;
+ALTER TABLE hive.* DEFAULT CHARACTER SET latin1;
+
+
+----
+
 hive --service metastore &
 
 hive
@@ -119,3 +127,26 @@ kylin_sales
 
 
 ----------------------
+
+
+spark
+
+
+
+
+hive on spark 
+
+将hdfs-site.xml和hive-site.xml拷贝到conf目录下
+将mysql的jar包拷贝到lib目录下
+
+启动bin/spark-sql
+
+
+
+
+
+
+
+
+
+
