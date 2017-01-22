@@ -38,6 +38,7 @@ ALTER TABLE hive.* DEFAULT CHARACTER SET latin1;
 
 
 ----
+hive配置远程metastore 
 
 hive --service metastore &
 

@@ -1,0 +1,76 @@
+
+library(DT)
+library(rvest)
+library(stringr)
+
+
+#chengdu
+url_link <- 'http://cd.fang.lianjia.com/loupan/'
+data_cd=data.frame(楼盘名=1,面积=1,价格=1,地址=1,类型=1,状态=1)
+
+
+#每一页 这里共10页
+for(i in 1:10)
+{
+  //暂存数据
+  data_cd1=data_cd[-1,]
+  
+  //拼接url链接
+  url <- paste(url_link,"pg",i,sep = '')
+  
+  web <- read_html(url)
+  
+  #楼盘名
+  name <- web %>% html_nodes('div.info-panel') %>% 
+    html_nodes('a') %>% html_text()
+	
+  #地址
+  address <- web %>% html_nodes('div.info-panel') %>% 
+    html_nodes('div.where') %>% html_nodes('span.region') %>% 
+    html_text()
+	
+  #面积
+  b=web %>% html_nodes('div.info-panel') %>% html_nodes('div.area') 
+  are=rep(0,length(b))
+  
+  for (i in 1:length(b))
+  {
+    if (str_length(b[i]) > 60){
+      are[i] =  b[i] %>% html_nodes('span') %>% html_text()
+    }else{
+      are[i] = 0
+    }
+  }
+  area=ifelse(are=='0','0',unlist(str_extract(are,'[0-9]+~[0-9]+|[0-9]+')))
+  
+  #类型
+  type <- web %>% html_nodes('div.info-panel') %>% html_nodes('div.type') %>% html_nodes('span.live') %>% html_text()
+	
+  #状态	
+  status <- web %>% html_nodes('div.info-panel') %>% html_nodes('div.type') %>% html_nodes('span.onsold') %>% html_text()
+
+  #价格
+  a <- web %>% html_nodes('div.info-panel') %>% html_nodes('div.average') 
+  
+  pric=rep(0,length(a))
+  for (i in 1:length(a))
+  {
+    if (str_length(a[i]) > 100){
+      pric[i] = a[i]%>% html_nodes('span.num') %>% html_text()
+    }else{
+      pric[i] = 0
+    }
+  }
+  price=pric
+  
+  
+  data_cd2 <- data.frame(楼盘名=name,面积=area,价格=price,地址=address,
+                            类型=type,状态=status)
+							
+  data_cd <- data.frame(rbind(data_cd1,data_cd2))
+}
+
+DT::datatable(data_cd)
+
+
+
